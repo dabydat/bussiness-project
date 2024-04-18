@@ -9,7 +9,8 @@
         "laravel-json-api/laravel": "^4.0",
         "laravel/framework": "^11.0",
         "laravel/passport": "^12.1",
-        "laravel/tinker": "^2.9"
+        "laravel/tinker": "^2.9",
+        "spatie/laravel-permission": "^6.4"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",

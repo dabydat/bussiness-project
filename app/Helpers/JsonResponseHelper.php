@@ -9,9 +9,9 @@ class JsonResponseHelper
     public static function success($message = "Successful Operation", $data = null)
     {
         if ($data === null) {
-            $json = ['type' => JsonResponseEnum::SUCCESS, 'message' => $message, 'data' => $data];
-        } else {
             $json = ['type' => JsonResponseEnum::SUCCESS, 'message' => $message];
+        } else {
+            $json = ['type' => JsonResponseEnum::SUCCESS, 'message' => $message, 'data' => $data];
         }
         return response($json, 200);
     }

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
+use App\Notifications\ChangeRoleNotification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Helpers\JsonResponseHelper;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -18,6 +20,7 @@ class AuthenticationController extends Controller
      */
     public function signUp(SignUpRequest $request)
     {
+        DB::beginTransaction();
         try {
             $userExists = User::userExistsByEmail($request->email);
             if ($userExists) {
@@ -26,14 +29,21 @@ class AuthenticationController extends Controller
 
             $user = User::createUser($request->all());
             if ($user) {
+                $token = $user->createToken($user->id)->accessToken;
                 $data = [
-                    'token' => $user->createToken($user->id)->accessToken,
+                    'token' => $token,
                     'user' => ['name' => $user->name, 'email' => $user->email],
                 ];
+                User::where('id', $user->id)->update(['api_token' => $token]);
+                DB::commit();
+                $user->api_token = $token;
+                $administrator = User::where('role_id', 1)->first();
+                $administrator->notify(new ChangeRoleNotification($user));
                 return JsonResponseHelper::success('User created successfully', $data);
             }
             return JsonResponseHelper::error('User not found');
         } catch (\Throwable $th) {
+            DB::rollBack();
             return JsonResponseHelper::error('Something went wrong', $th->getMessage());
         }
     }
@@ -53,11 +63,13 @@ class AuthenticationController extends Controller
             if (!Hash::check($request->password, $user->password)) {
                 return JsonResponseHelper::error('Wrong password');
             }
-
+            $token = $user->createToken($user->id)->accessToken;
             $data = [
-                'token' => $user->createToken($user->id)->accessToken,
+                'token' => $token,
                 'user' => ['name' => $user->name, 'email' => $user->email],
             ];
+            User::where('id', $user->id)->update(['api_token' => $token]);
+
             return JsonResponseHelper::success('User logged in successfully', $data);
         } catch (\Throwable $th) {
             return JsonResponseHelper::error('Something went wrong', $th->getMessage());

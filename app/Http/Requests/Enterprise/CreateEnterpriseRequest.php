@@ -1,12 +1,16 @@
 <?php
 
-namespace App\Http\Requests\Auth;
+namespace App\Http\Requests\Enterprise;
 
+use App\Rules\CountriesInDatabase;
+use App\Rules\DocumentTypesInDatabase;
+use App\Rules\StatusEnterpriseInDatabase;
+use App\Rules\UsersInDatabase;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class SignUpRequest extends FormRequest
+class CreateEnterpriseRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,27 +28,25 @@ class SignUpRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8'],
-            'phone_number' => ['required'],
-            'local_number' => ['required'],
+            "name" => ['required'],
+            "document_type" => ['required', new DocumentTypesInDatabase],
+            "status" => ['required', new StatusEnterpriseInDatabase],
+            "email" => ['required', 'email'],
+            "user_id" => ['required', new UsersInDatabase],
+            "country_id" => ['required', new CountriesInDatabase],
         ];
     }
 
-    /**
-     * Get the error messages for the defined validation rules.
-     *
-     * @return array
-     */
     public function messages(): array
     {
         return [
             'name.required' => 'Name is required',
+            'document_type.required' => 'Document type is required',
+            'status.required' => 'Status is required',
             'email.required' => 'Email is required',
-            'password.required' => 'Password is required',
-            'phone_number.required' => 'Phone Number is required',
-            'local_number.required' => 'Local Number is required',
+            'email.email' => 'Email does not have a valid format',
+            'user_id.required' => 'User id is required',
+            'country_id.required' => 'Country id is required',
         ];
     }
 

@@ -23,9 +23,7 @@ class JsonResponseHelper
         } else {
             $json = ['type' => JsonResponseEnum::ERROR, 'message' => 'Internal Server Error'];
         }
-
         return response($json, 500);
-
     }
 
     public static function notFound($message = 'Not Found')
@@ -34,6 +32,21 @@ class JsonResponseHelper
             ['type' => JsonResponseEnum::NOT_FOUND, 'message' => $message],
             404
         );
+    }
 
+    public static function forbidden($message = 'Not Found')
+    {
+        return response(
+            ['type' => JsonResponseEnum::FORBIDDEN, 'message' => $message],
+            403
+        );
+    }
+
+    public static function unauthorized($message = 'Unauthorized')
+    {
+        return response(
+            ['type' => JsonResponseEnum::UNAUTHORIZED, 'message' => $message],
+            401
+        );
     }
 }

@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
-use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class RolesTableSeeder extends Seeder
 {
@@ -12,15 +13,10 @@ class RolesTableSeeder extends Seeder
      */
     public function run(): void
     {
-        $roles = ['USER', 'ADMINISTRATOR'];
-
-        $faker = Faker::create();
-
-        foreach ($roles as $role) {
-            \App\Models\Role::create([
-                'name' => $role,
-                'guard_name' => 'api',
-            ]);
-        }
+        $administrator = Role::create(['name' => 'administrator']);
+        $normal = Role::create(['name' => 'normal']);
+        Permission::create(['name' => 'user.changeRole'])->syncRoles(['administrator']);
+        Permission::create(['name' => 'enterprise.asociateActivity'])->syncRoles(['administrator']);
+        Permission::create(['name' => 'enterprise.disasociateActivity'])->syncRoles(['administrator']);
     }
 }

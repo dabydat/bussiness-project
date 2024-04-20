@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Http\Requests\Auth;
+namespace App\Http\Requests\Enterprise;
 
+use App\Rules\ActivitiesInDatabase;
+use App\Rules\EnterprisesInDatabase;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class SignUpRequest extends FormRequest
+class CreateEnterpriseActivityRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,27 +26,16 @@ class SignUpRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8'],
-            'phone_number' => ['required'],
-            'local_number' => ['required'],
+            "enterprise_id" => ['required', new EnterprisesInDatabase],
+            "activity_id" => ['required', new ActivitiesInDatabase],
         ];
     }
 
-    /**
-     * Get the error messages for the defined validation rules.
-     *
-     * @return array
-     */
     public function messages(): array
     {
         return [
-            'name.required' => 'Name is required',
-            'email.required' => 'Email is required',
-            'password.required' => 'Password is required',
-            'phone_number.required' => 'Phone Number is required',
-            'local_number.required' => 'Local Number is required',
+            'enterprise_id.required' => 'Enterprise ID is required',
+            'activity_id.required' => 'Activity ID type is required',
         ];
     }
 

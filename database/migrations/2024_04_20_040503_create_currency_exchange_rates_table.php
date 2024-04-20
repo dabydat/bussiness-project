@@ -11,8 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('role_id')->default(2);
+        Schema::create('currency_exchange_rates', function (Blueprint $table) {
+            $table->id();
+            $table->string('currency');
+            $table->float('rate');
+            $table->date('date');
+            $table->timestamps();
         });
     }
 
@@ -21,8 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('role_id');
-        });
+        Schema::dropIfExists('currency_exchange_rates');
     }
 };

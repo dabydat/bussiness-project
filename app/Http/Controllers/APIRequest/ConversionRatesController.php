@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\APIRequest;
 
+use Carbon\Carbon;
 use App\API\GuzzleClientApi;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Helpers\JsonResponseHelper;
 use App\Http\Controllers\Controller;
 use App\Models\API\HistoryConversionRate;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Carbon\Carbon;
 
 class ConversionRatesController extends Controller
 {

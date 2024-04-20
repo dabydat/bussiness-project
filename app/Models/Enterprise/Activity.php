@@ -19,9 +19,11 @@ class Activity extends Model
         'updated_at',
     ];
 
-    public static function getAllActivities($skip, $take)
+    public static function getAllActivities($request, $skip, $take)
     {
-        return Activity::skip($skip)->take($take)->get();
+        $activities = new Activity;
+        if($request->activity <> "") $activities = $activities->where('activity', 'ilike', '%' . $request->activity . '%');
+        return $activities->skip($skip)->take($take)->get();
     }
 
 }

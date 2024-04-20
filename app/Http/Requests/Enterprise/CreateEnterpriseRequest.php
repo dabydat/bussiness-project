@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests\Enterprise;
 
+use App\Rules\UsersInDatabase;
 use App\Rules\CountriesInDatabase;
 use App\Rules\DocumentTypesInDatabase;
 use App\Rules\StatusEnterpriseInDatabase;
-use App\Rules\UsersInDatabase;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;

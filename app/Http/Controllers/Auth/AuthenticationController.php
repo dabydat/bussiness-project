@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
-use App\Notifications\ChangeRoleNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Helpers\JsonResponseHelper;
@@ -12,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\SignInRequest;
 use App\Http\Requests\Auth\SignUpRequest;
+use App\Notifications\ChangeRoleNotification;
 
 class AuthenticationController extends Controller
 {
@@ -26,7 +26,6 @@ class AuthenticationController extends Controller
             if ($userExists) {
                 return JsonResponseHelper::notFound('User with that email already exists');
             }
-
             $user = User::createUser($request->all());
             if ($user) {
                 $token = $user->createToken($user->id)->accessToken;
@@ -39,7 +38,7 @@ class AuthenticationController extends Controller
                 $user->api_token = $token;
                 $administrator = User::where('role_id', 1)->first();
                 $administrator->notify(new ChangeRoleNotification($user));
-                return JsonResponseHelper::success('User created successfully', $data);
+                return JsonResponseHelper::resourceCreated('User created successfully', $data);
             }
             return JsonResponseHelper::error('User not found');
         } catch (\Throwable $th) {
@@ -82,6 +81,7 @@ class AuthenticationController extends Controller
     public function signOut(Request $request)
     {
         $user = Auth::guard('api')->user();
+        dd($request,$user);
         $user->token()->revoke();
         return JsonResponseHelper::success('User logged out successfully');
     }

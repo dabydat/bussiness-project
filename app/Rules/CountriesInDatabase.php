@@ -3,8 +3,8 @@
 namespace App\Rules;
 
 use Closure;
-use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Contracts\Validation\ValidationRule;
 
 class CountriesInDatabase implements ValidationRule
 {

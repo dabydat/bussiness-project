@@ -64,7 +64,8 @@ La base de datos usada ha sido PostgreSQL.
 
 
 ### Servicio de Correo
-El servicio de correo que fue utilizado ha sido [Mailtrap]('https://mailtrap.io')
+El servicio de correo que fue utilizado ha sido 
+- [Mailtrap]('https://mailtrap.io')
 
 `MAIL_MAILER=smtp`
 
@@ -79,7 +80,8 @@ El servicio de correo que fue utilizado ha sido [Mailtrap]('https://mailtrap.io'
 `MAIL_FROM_ADDRESS="bussiness@project.com"`
 
 ### Servicio de API para la Conversion de Monedas
-El servicio de conversion de monedas que se uso fue de [ExchangeRates]('https://www.exchangerate-api.com/')
+El servicio de conversion de monedas que se uso fue de 
+- [ExchangeRates]('https://www.exchangerate-api.com/')
 
 `API_ACCESS_LINK=https://v6.exchangerate-api.com/v6/`
 
@@ -93,7 +95,7 @@ El servicio de conversion de monedas que se uso fue de [ExchangeRates]('https://
 #### Para registrarse en el sistema
 
 ```http
-  GET /api/auth/v1/signUp
+  POST /api/auth/v1/signUp
 ```
 
 | Parámetro         | Tipo de Dato     | Descripción                |
@@ -107,7 +109,7 @@ El servicio de conversion de monedas que se uso fue de [ExchangeRates]('https://
 #### Para el inicio de sesión en el sistema
 
 ```http
-  GET /api/auth/v1/signIn
+  POST /api/auth/v1/signIn
 ```
 
 | Parámetro     | Tipo de Dato     | Descripción                |
@@ -115,18 +117,18 @@ El servicio de conversion de monedas que se uso fue de [ExchangeRates]('https://
 | `email`       | `string`         | **Requerido**. |
 | `password`    | `string`         | **Requerido**. |
 
-#### Para el inicio de sesión en el sistema
+#### |------------------*Rutas privadas que SI requieren el uso de Bearer Token*------------------|
+
+#### Para cerrar sesión en el sistema
 
 ```http
-  GET /api/auth/v1/signOut
+  POST /api/auth/v1/signOut
 ```
 
 | Parámetro     | Tipo de Dato     | Descripción                |
 | :--------     | :-------         | :-------------------------------- |
 | `token`       | `string`         | **Requerido**. Este es el Bearer Token generado por el inicio de sesión Ó por el registro.|
 |      |          | Se requiere el Bearer token en Authorization para poder hacer LogOut del sistema. |
-
-#### |------------------*Rutas privadas que SI requieren el uso de Bearer Token*------------------|
 
 #### Cambiar de Rol el usuario nuevo
 

@@ -3,17 +3,16 @@
 namespace App\Http\Controllers\Enterprise;
 
 use App\Config\Pagination;
-use App\Helpers\JsonResponseHelper;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Enterprise\CreateActivityRequest;
-use App\Http\Requests\Enterprise\CreateEnterpriseActivityRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\Enterprise\Activity;
+use App\Helpers\JsonResponseHelper;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
 use App\Models\Enterprise\Enterprise;
 use App\Models\Enterprise\EnterpriseActivity;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Spatie\Permission\Models\Permission;
+use App\Http\Requests\Enterprise\CreateActivityRequest;
+use App\Http\Requests\Enterprise\CreateEnterpriseActivityRequest;
 
 class ActivitiesController extends Controller
 {
@@ -21,7 +20,7 @@ class ActivitiesController extends Controller
     {
         $skip = $request->skip ?? Pagination::SKIP;
         $take = $request->take ?? Pagination::TAKE;
-        return Activity::getAllActivities($skip, $take);
+        return Activity::getAllActivities($request, $skip, $take);
     }
 
     /**
@@ -33,7 +32,7 @@ class ActivitiesController extends Controller
         try {
             Activity::create($request->all());
             DB::commit();
-            return JsonResponseHelper::success('Activity created successfully');
+            return JsonResponseHelper::resourceCreated('Activity created successfully');
         } catch (\Throwable $th) {
             DB::rollBack();
             return JsonResponseHelper::error('Something went wrong', $th->getMessage());

@@ -4,7 +4,6 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
-use SimpleXMLElement;
 use App\Models\Imports\CurrencyExchangeRate;
 
 class ImportCurrencyExchangeRates extends Command

@@ -49,4 +49,14 @@ class JsonResponseHelper
             401
         );
     }
+
+    public static function resourceCreated($message = "Successful Operation", $data = null)
+    {
+        if ($data === null) {
+            $json = ['type' => JsonResponseEnum::SUCCESS, 'message' => $message];
+        } else {
+            $json = ['type' => JsonResponseEnum::SUCCESS, 'message' => $message, 'data' => $data];
+        }
+        return response($json, 201);
+    }
 }

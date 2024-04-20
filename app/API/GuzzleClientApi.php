@@ -4,7 +4,7 @@ namespace App\API;
 
 use GuzzleHttp\Client;
 
-class GuzzleClientApi 
+class GuzzleClientApi
 {
     public static function getGuzzleClient()
     {

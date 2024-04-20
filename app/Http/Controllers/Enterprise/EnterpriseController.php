@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Enterprise;
 
 use App\Config\Pagination;
-use App\Helpers\JsonResponseHelper;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Enterprise\CreateEnterpriseRequest;
-use App\Models\Enterprise\Enterprise;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Helpers\JsonResponseHelper;
+use App\Http\Controllers\Controller;
+use App\Models\Enterprise\Enterprise;
+use App\Http\Requests\Enterprise\CreateEnterpriseRequest;
 
 class EnterpriseController extends Controller
 {
@@ -31,43 +31,11 @@ class EnterpriseController extends Controller
             }
             Enterprise::create($request->all());
             DB::commit();
-            return JsonResponseHelper::success('Enterprise created successfully');
+            return JsonResponseHelper::resourceCreated('Enterprise created successfully');
         } catch (\Throwable $th) {
             DB::rollBack();
             return JsonResponseHelper::error('Something went wrong', $th->getMessage());
         }
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 
     public function getEnterpriseWithoutActivities(Request $request)

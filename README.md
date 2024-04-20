@@ -45,7 +45,7 @@ Ejecutar el siguiente comando para iniciar a correr el sistema
 
 ## Environment Variables
 
-Las variables de entorno que deben ser tomadas en consideracion son las siguientesÑ
+Las variables de entorno que deben ser tomadas en consideracion son las siguientes:
 
 ### Base de Datos
 La base de datos usada ha sido PostgreSQL. 
@@ -65,7 +65,7 @@ La base de datos usada ha sido PostgreSQL.
 
 ### Servicio de Correo
 El servicio de correo que fue utilizado ha sido 
-- [Mailtrap]('https://mailtrap.io')
+- [Mailtrap] ('https://mailtrap.io')
 
 `MAIL_MAILER=smtp`
 
@@ -81,7 +81,7 @@ El servicio de correo que fue utilizado ha sido
 
 ### Servicio de API para la Conversion de Monedas
 El servicio de conversion de monedas que se uso fue de 
-- [ExchangeRates]('https://www.exchangerate-api.com/')
+- [ExchangeRates] ('https://www.exchangerate-api.com/')
 
 `API_ACCESS_LINK=https://v6.exchangerate-api.com/v6/`
 

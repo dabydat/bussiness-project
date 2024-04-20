@@ -12,6 +12,7 @@ use App\Http\Requests\Enterprise\CreateEnterpriseRequest;
 
 class EnterpriseController extends Controller
 {
+    // Obtener todas las empresas y paginadas
     public function getAllEnterprises(Request $request)
     {
         $skip = $request->skip ?? Pagination::SKIP;
@@ -19,9 +20,7 @@ class EnterpriseController extends Controller
         return Enterprise::getAllEnterprises($request, $skip, $take);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // Guardar un empresa
     public function storeEnterprise(CreateEnterpriseRequest $request)
     {
         DB::beginTransaction();
@@ -38,6 +37,7 @@ class EnterpriseController extends Controller
         }
     }
 
+    // Obtener todas las empresas que no tienen actividades
     public function getEnterpriseWithoutActivities(Request $request)
     {
         $skip = $request->skip ?? Pagination::SKIP;

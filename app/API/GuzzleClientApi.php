@@ -4,6 +4,7 @@ namespace App\API;
 
 use GuzzleHttp\Client;
 
+// Clase de Guzzle para realizar peticiones HTTP de forma generica sin tener que crear peticiones individuales
 class GuzzleClientApi
 {
     public static function getGuzzleClient()

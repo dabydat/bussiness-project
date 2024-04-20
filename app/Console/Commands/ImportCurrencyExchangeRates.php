@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 use App\Models\Imports\CurrencyExchangeRate;
 
+// Comando para importar los datos de la tasa de cambio de monedas del ECB
 class ImportCurrencyExchangeRates extends Command
 {
     protected $signature = 'import:currency-exchange-rates';

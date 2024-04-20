@@ -22,6 +22,7 @@ class ConversionRatesController extends Controller
         $this->apiToken = env('API_KEY');
     }
 
+    // Funcion para obtener todas las tasas de conversion dado una moneda base
     public function getConversionRates(Request $request)
     {
         DB::beginTransaction();

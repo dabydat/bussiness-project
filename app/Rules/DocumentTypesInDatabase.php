@@ -15,6 +15,7 @@ class DocumentTypesInDatabase implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
+        // Se validan los tipos de documentos para  las empresas y se indica cuales estan disponibles
         $document_types = DB::table('document_types')->pluck('description')->toArray();
         if (!in_array($value, $document_types)) {
             $document_types = implode(', ', $document_types);

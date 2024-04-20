@@ -15,6 +15,7 @@ class CountriesInDatabase implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
+        // Se validan los paises
         $countries = DB::table('countries')->pluck('id')->toArray();
         if (!in_array($value, $countries)) {
             $fail('The country with ID: ' . $value . ' does not exist.');

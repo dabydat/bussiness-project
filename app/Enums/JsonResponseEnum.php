@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Enums;
-
+// Enumerador de tipos de respuesta
 enum JsonResponseEnum {
     const SUCCESS = 'success';
     const ERROR = 'error';

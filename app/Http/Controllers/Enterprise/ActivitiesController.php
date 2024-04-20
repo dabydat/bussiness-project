@@ -16,6 +16,7 @@ use App\Http\Requests\Enterprise\CreateEnterpriseActivityRequest;
 
 class ActivitiesController extends Controller
 {
+    // Obtener todas las actividades y paginadas
     public function getAllActivities(Request $request)
     {
         $skip = $request->skip ?? Pagination::SKIP;
@@ -39,6 +40,7 @@ class ActivitiesController extends Controller
         }
     }
 
+    // Obtener todas las actividades de una empresa y paginadas
     public function getAllEnterpriseActivities(Request $request)
     {
         $skip = $request->skip ?? Pagination::SKIP;
@@ -46,6 +48,7 @@ class ActivitiesController extends Controller
         return EnterpriseActivity::getAllEnterpriseActivities($request, $skip, $take);
     }
 
+    // Asociar actividades a las empresas
     public function storeEnterpriseWithActivity(CreateEnterpriseActivityRequest $request)
     {
         $userSession = Auth::guard('api')->user();
@@ -83,9 +86,8 @@ class ActivitiesController extends Controller
         return JsonResponseHelper::forbidden('You do not have permission to associate activities for permission or you are not the user of this enterprise');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    
+    // Desasociar actividades a las empresas
     public function disasociateEnterpriseActivity(Request $request)
     {
         $userSession = Auth::guard('api')->user();

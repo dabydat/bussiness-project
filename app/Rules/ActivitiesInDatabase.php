@@ -15,6 +15,7 @@ class ActivitiesInDatabase implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
+        // Obtener todas las actividades y se validan por tipo de dato para saber su funcionamiento y validacion a aplicar
         $activities = DB::table('activities')->pluck('id')->toArray();
         if (gettype($value) === 'array') {
             foreach ($value as $key) {

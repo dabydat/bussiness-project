@@ -4,8 +4,11 @@ namespace App\Helpers;
 
 use App\Enums\JsonResponseEnum;
 
+// Funciones para devolver respuestas JSON
+
 class JsonResponseHelper
 {
+    // Funcion para devolver respuesta success
     public static function success($message = "Successful Operation", $data = null)
     {
         if ($data === null) {
@@ -16,6 +19,7 @@ class JsonResponseHelper
         return response($json, 200);
     }
 
+    // Funcion para devolver respuesta error
     public static function error($message = 'Internal Server Error', $hint = null)
     {
         if (env('APP_ENV') == 'local') {
@@ -26,6 +30,7 @@ class JsonResponseHelper
         return response($json, 500);
     }
 
+    // Funcion para devolver respuesta not found
     public static function notFound($message = 'Not Found')
     {
         return response(
@@ -34,6 +39,7 @@ class JsonResponseHelper
         );
     }
 
+    // Funcion para devolver respuesta forbidden
     public static function forbidden($message = 'Not Found')
     {
         return response(
@@ -42,6 +48,7 @@ class JsonResponseHelper
         );
     }
 
+    // Funcion para devolver respuesta unauthorized
     public static function unauthorized($message = 'Unauthorized')
     {
         return response(
@@ -50,6 +57,7 @@ class JsonResponseHelper
         );
     }
 
+    // Funcion para devolver respuesta de un recurso creado en la Base de datos
     public static function resourceCreated($message = "Successful Operation", $data = null)
     {
         if ($data === null) {

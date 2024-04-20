@@ -15,6 +15,7 @@ class StatusEnterpriseInDatabase implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
+        // Se validan los estatus para  las empresas y se indica cuales estan disponibles
         $statuses = DB::table('status_enterprises')->pluck('description')->toArray();
         if (!in_array($value, $statuses)) {
             $statuses = implode(', ', $statuses);

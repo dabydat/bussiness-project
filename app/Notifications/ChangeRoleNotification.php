@@ -7,6 +7,8 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Messages\MailMessage;
 
+// Se centralizo el envio de notificacion de correo para cuando es registro de nuevo usuario,
+// Y para cuando el administrador ha respondido a la peticion de cambio de rol
 class ChangeRoleNotification extends Notification
 {
     use Queueable;
@@ -36,6 +38,7 @@ class ChangeRoleNotification extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
+        // Identificando que tipo de accion se va a realizar para cuando el adminstrador ha respondido a la peticion
         if ($this->action == 'accepted') {
             return (new MailMessage)
                 ->line('Verified user role')
@@ -48,6 +51,7 @@ class ChangeRoleNotification extends Notification
                 ->line('Your role to be an adminstrator was rejected. We will contact you soon');
         }
 
+        // Si la accion es null el correo sera enviado al administrador para que lo acepte o rechace
         if ($this->action == null) {
             $url1 = url('/api/v1/changeRole/' . encrypt($this->user->id) . '/rejected');
             $url2 = url('/api/v1/changeRole/' . encrypt($this->user->id) . '/accepted');

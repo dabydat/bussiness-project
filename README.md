@@ -42,6 +42,11 @@ Ejecutar el siguiente comando para iniciar a correr el sistema
   php artisan serve
 ```
 
+Para importar la data de ECB, se requiere usar el siguiente comando, cabe destacar que hay dos formas en el codigo, tanto para importar toda la data historica, como la ultima data, actualmente siempre importa la data mas actual:
+
+```bash
+php artisan import:currency-exchange-rates
+```
 
 ## Environment Variables
 

@@ -81,7 +81,6 @@ class AuthenticationController extends Controller
     public function signOut(Request $request)
     {
         $user = Auth::guard('api')->user();
-        dd($request,$user);
         $user->token()->revoke();
         return JsonResponseHelper::success('User logged out successfully');
     }
